@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="/styles.css">
+  <script type="text/javascript">
+  let data =<%- JSON.stringify(locals.data)%>
+  console.log(data);
+
+  window.addEventListener('scroll',()=>{
+    const {scrollTop,scrollHeight,clientHeight}=document.documentElement;
+
+    if(scrollTop+clientHeight>=scrollHeight){
+      console.log("bottom");
+
+      addData(data);
+
+   }
+
+  });
+    function addData(data){
+      for (var x in data) {
+        let div = document.createElement("div");
+
+        div.innerHTML= `<p>${data[x].id}</p>    <p>${data[x].category}</p>
+           <img src="${data[x].image}" alt="" height="200px" width="200px">
+
+           <h3 class="description">${data[x].title}</h3>
+           <p class="description">${data[x].description}</p>
+           <p>Price: ${data[x].price}</p>
+           <p>Rating: ${JSON.stringify(data[x].rating.rate)}&nbsp;&nbsp;&nbsp;&nbsp;  Count:${JSON.stringify(data[x].rating.count)}   </p>
+
+
+           <form class="/" action="/cart" method="post">
+             <button type="submit" name="button">Add to Cart</button>
+           </form>`;
+           div.classList.add("card");
+
+        document.body.firstElementChild.appendChild(div);
+      }
+
+    }
+
+  </script>
+  </head>
+  <body>
+    <div class="main">
+    <h1>fresh stock</h1>
+
+    </div>
+
+  </body>
+</html>
